@@ -5,9 +5,6 @@
         "node": true,
         "jest": true
     },
-    "extends": [
-        "airbnb"
-    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -20,19 +17,28 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
+    "plugins": ["react"],
     "rules": {
         "indent": ["error", 4],
-        "no-underscore-dangle": "off",
-        "class-methods-use-this": "off",
-        "no-param-reassign": "off",
-        "default-case": "off",
-        "yoda": "off",
-        "react/jsx-indent": "off",
-        "react/jsx-filename-extension": "off",
-        "object-curly-spacing": "off",
-        "arrow-body-style": "off"
+        "no-console": "warn",
+        "comma-dangle": "warn",
+        "no-sparse-arrays": "warn",
+        "no-unreachable": "error",
+        "no-unsafe-negation": "error",
+        "getter-return": "error",
+        "no-compare-neg-zero": "error",
+        "no-debugger": "error",
+        "no-trailing-spaces": "error",
+        "no-extra-semi": "warn",
+        "eqeqeq": "error",
+        "curly": "warn",
+        "dot-notation": "error",
+        "no-alert": "error",
+        "no-unused-expressions": "warn",
+        "no-useless-escape": "error",
+        "require-await": "error",
+        "prefer-const": "error",
+        "camelcase": "error",
+        "comma-spacing": "error"
     }
 }
