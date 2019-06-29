@@ -12,6 +12,7 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -24,10 +25,14 @@
     ],
     "rules": {
         "indent": ["error", 4],
-        "no-underscore-dangle": ["off"],
-        "class-methods-use-this": ["off"],
-        "no-param-reassign": ["off"],
-        "default-case": ["off"],
-        "yoda": ["off"]
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "no-param-reassign": "off",
+        "default-case": "off",
+        "yoda": "off",
+        "react/jsx-indent": "off",
+        "react/jsx-filename-extension": "off",
+        "object-curly-spacing": "off",
+        "arrow-body-style": "off"
     }
 }
