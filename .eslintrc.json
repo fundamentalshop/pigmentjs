@@ -5,9 +5,6 @@
         "node": true,
         "jest": true
     },
-    "extends": [
-        "airbnb"
-    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -20,19 +17,8 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
+    "plugins": ["react"],
     "rules": {
-        "indent": ["error", 4],
-        "no-underscore-dangle": "off",
-        "class-methods-use-this": "off",
-        "no-param-reassign": "off",
-        "default-case": "off",
-        "yoda": "off",
-        "react/jsx-indent": "off",
-        "react/jsx-filename-extension": "off",
-        "object-curly-spacing": "off",
-        "arrow-body-style": "off"
+        "indent": ["error", 4]
     }
 }
