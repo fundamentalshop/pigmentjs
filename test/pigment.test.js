@@ -188,7 +188,7 @@ describe('complementary colour', () => {
     });
 
     test('complementary colour applied twice returns original hex', () => {
-        for (let i = 0; i < 100; i += 1) {
+        for (let i = 0; i < 100; i++) {
             const colour = pigment();
             const [r1, g1, b1] = colour.rgb;
 
