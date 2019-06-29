@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import trichroma from '@jamestoohey/trichroma';
+import pigment from 'pigmentjs';
 import './App.css';
 
 
 function App() {
-    const [_colour, setColour] = useState(trichroma());
+    const [_colour, setColour] = useState(pigment());
 
     return (
         <div className="app">
@@ -33,7 +33,7 @@ function App() {
                     Complementary: {_colour.complementary().hex} | RGB: ({_colour.complementary().rgbString}) | HSL: ({_colour.complementary().hslString})
                 </p>
                 <button
-                    onClick={() => setColour(trichroma())}
+                    onClick={() => setColour(pigment())}
                     style={{
                         color: _colour.hex,
                         borderColor: _colour.hex,
