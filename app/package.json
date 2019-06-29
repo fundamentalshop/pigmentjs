@@ -2,9 +2,12 @@
   "name": "pigmentjs",
   "version": "0.1.0",
   "description": "A zero-dependency colour organisation, creation and manipulation library built for web developers.",
-  "main": "index.js",
+  "main": "dist/pigment.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack",
+    "build-watch": "webpack --watch",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/JamesToohey/pigmentjs/issues"
   },
-  "homepage": "https://github.com/JamesToohey/pigmentjs#readme"
+  "homepage": "https://github.com/JamesToohey/pigmentjs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "jest": "^24.8.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  }
 }
