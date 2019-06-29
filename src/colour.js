@@ -65,11 +65,19 @@ export default class Colour {
 
     _randomHex() {
         let r = Math.round(Math.random() * (255)).toString(16);
-        if (r.toString().length === 1) r += r;
+        if (r.toString().length === 1)  {
+            r += r;
+        }
+
         let g = Math.round(Math.random() * (255)).toString(16);
-        if (g.length === 1) g += g;
+        if (g.length === 1)  {
+            g += g;
+        }
+
         let b = Math.round(Math.random() * (255)).toString(16);
-        if (b.length === 1) b += b;
+        if (b.length === 1) {
+            b += b;
+        }
         return `#${r}${g}${b}`.toUpperCase();
     }
 
