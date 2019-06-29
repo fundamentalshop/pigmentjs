@@ -1,7 +1,5 @@
-import colour from './colour';
+import Colour from './colour';
 
-const pigment = (hex) => {
-    return new colour(hex);
-};
+const pigment = hex => new Colour(hex);
 
 export default pigment;

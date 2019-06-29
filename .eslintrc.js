@@ -2,7 +2,8 @@ module.exports = {
     'env': {
         'browser': true,
         'es6': true,
-        'node': true
+        'node': true,
+        'jest': true,
     },
     'extends': [
         'airbnb'
@@ -23,7 +24,7 @@ module.exports = {
     ],
     'rules': {
         'indent': ['error', 4],
-        'no-underscore-dangle': ['error', {'allowAfterThis': true}],
+        'no-underscore-dangle': ['off'],
         'class-methods-use-this': ['off'],
         'no-param-reassign': ['off'],
         'default-case': ['off'],

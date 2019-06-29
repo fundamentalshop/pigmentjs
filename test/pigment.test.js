@@ -144,7 +144,7 @@ describe('getters', () => {
         test('#1B156B', () => {
             const colour = pigment('#1B156B');
             expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
-        })
+        });
     });
 });
 
@@ -156,12 +156,12 @@ describe('randomHex', () => {
     });
 
     test('ensure always valid Hex (test 10,000 times)', () => {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 10000; i += 1) {
             expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
             colour = pigment();
         }
 
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 10000; i += 1) {
             expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
             colour = pigment();
         }
@@ -176,7 +176,7 @@ describe('complementary colour', () => {
     });
 
     test('complementary rotates hue by 180 degrees', () => {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 10000; i += 1) {
             const [h1] = colour1.hsl;
             const colour2 = colour1.complementary();
             const [h2] = colour2.hsl;
@@ -188,16 +188,13 @@ describe('complementary colour', () => {
     });
 
     test('complementary colour applied twice returns original hex', () => {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 100; i += 1) {
             const colour = pigment();
-            let r1, g1, b1;
-            [r1, g1, b1] = colour.rgb;
+            const [r1, g1, b1] = colour.rgb;
 
-            let h, s, l;
-            [h, s, l] = colour.hsl;
+            const [h, s, l] = colour.hsl;
 
-            let r2, g2, b2;
-            [r2, g2, b2] = colour._hsl2rgb(h, s, l);
+            const [r2, g2, b2] = colour._hsl2rgb(h, s, l);
             expect(r1).toEqual(r2);
             expect(g1).toEqual(g2);
             expect(b1).toEqual(b2);
