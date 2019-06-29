@@ -1,0 +1,19 @@
+{
+  "name": "pigmentjs",
+  "version": "0.1.0",
+  "description": "A zero-dependency colour organisation, creation and manipulation library built for web developers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesToohey/pigmentjs.git"
+  },
+  "author": "James Toohey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JamesToohey/pigmentjs/issues"
+  },
+  "homepage": "https://github.com/JamesToohey/pigmentjs#readme"
+}
