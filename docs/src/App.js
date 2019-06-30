@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
     const [_colour, setColour] = useState(pigment());
+    const [colour1, colour2, colour3] = _colour.triad();
 
     return (
         <div className="app">
@@ -17,7 +18,10 @@ function App() {
                     </g>
                 </svg>
             </header>
-            <div style={{backgroundColor: _colour.complementary().hex}} className="colour-info">
+            <div style={{backgroundColor: colour1.hex}} />
+            <div style={{backgroundColor: colour2.hex}} />
+            <div style={{backgroundColor: colour3.hex}} />
+            <div style={{backgroundColor: _colour.hex}} className="colour-info">
                 <p style={{
                     color: _colour.hex,
                     backgroundColor: _colour.complementary().hex,
@@ -35,8 +39,8 @@ function App() {
                 <button
                     onClick={() => setColour(pigment())}
                     style={{
-                        color: _colour.hex,
-                        borderColor: _colour.hex,
+                        color: _colour.complementary().hex,
+                        borderColor: _colour.complementary().hex,
                     }}
                 >
                     Randomise Colour
