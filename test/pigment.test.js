@@ -201,3 +201,30 @@ describe('complementary colour', () => {
         }
     });
 });
+
+describe('triadic colour', () => {
+    let colour;
+
+    beforeEach(() => {
+        colour = pigment();
+    });
+
+    test('triad rotates hue by 120 degrees and returns three colours', () => {
+        for (let i = 0; i < 10000; i += 1) {
+            const [colour1, colour2, colour3] = colour.triad();
+            const [h1] = colour1.hsl;
+            const [h2] = colour2.hsl;
+            const [h3] = colour3.hsl;
+
+            const hue1 = Math.round(h1);
+            const hue2 = Math.round(h2);
+            const hue3 = Math.round(h3);
+
+            const hues = [hue1, hue2, hue3];
+            hues.sort();
+            expect(Math.abs(hues[0] - hues[1])).toEqual(120);
+            expect(Math.abs(hues[1] - hues[2])).toEqual(120);
+        }
+    });
+
+});
