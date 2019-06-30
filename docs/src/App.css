@@ -1,0 +1,39 @@
+.app {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+header {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+}
+
+.app div {
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.colour-info p {
+    border-radius: 6px;
+    padding: 2px;
+}
+
+button {
+    height: 40px;
+    width: 160px;
+    font-size: 16px;
+    background-color: transparent;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
