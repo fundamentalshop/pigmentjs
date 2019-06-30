@@ -20,14 +20,14 @@ function App() {
             <div style={{backgroundColor: _colour.complementary().hex}} className="colour-info">
                 <p style={{
                     color: _colour.hex,
-                    backgroundColor: _colour.complementary().hex
+                    backgroundColor: _colour.complementary().hex,
                 }}>
                     Primary: {_colour.hex} | RGB: ({_colour.rgbString}) | HSL: ({_colour.hslString})
                 </p>
                 <p
                     style={{
                         color: _colour.complementary().hex,
-                        backgroundColor: _colour.hex
+                        backgroundColor: _colour.hex,
                     }}
                 >
                     Complementary: {_colour.complementary().hex} | RGB: ({_colour.complementary().rgbString}) | HSL: ({_colour.complementary().hslString})

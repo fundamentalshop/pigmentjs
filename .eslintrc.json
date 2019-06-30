@@ -21,7 +21,7 @@
     "rules": {
         "indent": ["error", 4],
         "no-console": "warn",
-        "comma-dangle": ["warn", "always"],
+        "comma-dangle": ["warn", "always-multiline"],
         "no-sparse-arrays": "warn",
         "no-unreachable": "error",
         "no-unsafe-negation": "error",
