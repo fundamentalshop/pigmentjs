@@ -19,6 +19,26 @@
     },
     "plugins": ["react"],
     "rules": {
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "no-console": "warn",
+        "comma-dangle": "warn",
+        "no-sparse-arrays": "warn",
+        "no-unreachable": "error",
+        "no-unsafe-negation": "error",
+        "getter-return": "error",
+        "no-compare-neg-zero": "error",
+        "no-debugger": "error",
+        "no-trailing-spaces": "error",
+        "no-extra-semi": "warn",
+        "eqeqeq": "error",
+        "curly": "warn",
+        "dot-notation": "error",
+        "no-alert": "error",
+        "no-unused-expressions": "warn",
+        "no-useless-escape": "error",
+        "require-await": "error",
+        "prefer-const": "error",
+        "camelcase": "error",
+        "comma-spacing": "error"
     }
 }
