@@ -221,9 +221,8 @@ describe('triadic colour', () => {
             const hue3 = Math.round(h3);
 
             const hues = [hue1, hue2, hue3];
-            hues.sort();
-            expect(Math.abs(hues[0] - hues[1])).toEqual(120);
-            expect(Math.abs(hues[1] - hues[2])).toEqual(120);
+            expect(Math.abs(hues[0] - hues[1])).toBeOneOf([120, 240]);
+            expect(Math.abs(hues[1] - hues[2])).toBeOneOf([120, 240]);
         }
     });
 
