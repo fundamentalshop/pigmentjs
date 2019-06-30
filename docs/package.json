@@ -55,8 +55,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "link": "cd ../ && npm link && cd ../docs && npm link pigmentjs",
-    "unlink": "npm unlink --no-save pigmentjs && cd ../app && npm unlink"
+    "link": "cd ../ && npm link && cd docs && npm link pigmentjs",
+    "unlink": "npm unlink --no-save pigmentjs && cd ../ && npm unlink"
   },
   "browserslist": {
     "production": [
