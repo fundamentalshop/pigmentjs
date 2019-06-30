@@ -1,10 +1,6 @@
 .app {
+    user-select: none;
     text-align: center;
-}
-
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
 }
 
 header {
@@ -16,23 +12,14 @@ header {
     font-size: calc(10px + 2vmin);
 }
 
-.app div {
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.colour-info p {
-    border-radius: 6px;
-    padding: 2px;
-}
-
 button {
+    position: absolute;
     height: 40px;
     width: 160px;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -80px;
     font-size: 16px;
-    background-color: transparent;
     border-radius: 6px;
     outline: none;
     cursor: pointer;
