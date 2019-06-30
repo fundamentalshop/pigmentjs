@@ -61,6 +61,41 @@ export default class Colour {
         return new Colour(hex);
     }
 
+    /**
+     * Convert to HSL, rotate hue 120 degrees (twice), convert
+     * back to RGB and instantiate pigmentjs with hex
+     *
+     * @returns [Colour] 3x pigmentjs instances
+     */
+    triad() {
+        let h;
+        let s;
+        let l;
+
+        // eslint-disable-next-line prefer-const
+        [h, s, l] = this.hsl;
+
+        h += 120;
+        if (h > 360) {
+            h -= 360;
+        }
+
+        let [r, g, b] = this._hsl2rgb(h, s, l);
+        let hex = this._rgb2hex(r, g, b);
+        const colour2 = new Colour(hex);
+
+        h += 120;
+        if (h > 360) {
+            h -= 360;
+        }
+
+        [r, g, b] = this._hsl2rgb(h, s, l);
+        hex = this._rgb2hex(r, g, b);
+        const colour3 = new Colour(hex);
+
+        return [this, colour2, colour3];
+    }
+
     // --------------------PRIVATE FUNCTIONS---------------------------
 
     _randomHex() {
