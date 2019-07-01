@@ -1,4 +1,6 @@
-# pigmentjs [![CircleCI](https://circleci.com/gh/JamesToohey/pigmentjs/tree/master.svg?style=svg)](https://circleci.com/gh/JamesToohey/pigmentjs/tree/master)
+# PigmentJS :pig_nose: :candy: [![CircleCI](https://circleci.com/gh/JamesToohey/pigmentjs/tree/master.svg?style=svg)](https://circleci.com/gh/JamesToohey/pigmentjs/tree/master)
+
+# NOTE: PigmentJS is under development and subject to change wildly at any time
 
 A zero-dependency colour creation, organisation, and manipulation library built for web developers.
 
