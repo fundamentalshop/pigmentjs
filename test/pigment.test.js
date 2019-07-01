@@ -1,19 +1,19 @@
-import pigment from '../src/pigment';
+import Pigment from '../src/Pigment';
 
 
-describe('pigment instantiation', () => {
+describe('Pigment instantiation', () => {
     test('it stores hex as upper case', () => {
-        const colour = pigment('#ffffff');
+        const colour = Pigment('#ffffff');
         expect(colour.hex).toEqual('#FFFFFF');
     });
 
     test('it throws nice errors when failing instantiation', () => {
-        expect(() => pigment('fail')).toThrow(Error);
-        expect(() => pigment('#YYYYYY')).toThrow(Error);
+        expect(() => Pigment('fail')).toThrow(Error);
+        expect(() => Pigment('#YYYYYY')).toThrow(Error);
     });
 
     test('generates random colour when instantiated with nothing', () => {
-        const colour = pigment();
+        const colour = Pigment();
         expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
     });
 });
@@ -21,70 +21,70 @@ describe('pigment instantiation', () => {
 describe('getters', () => {
     describe('complementary colour', () => {
         test('#FFFFFF', () => {
-            const colour = pigment('#FFFFFF');
+            const colour = Pigment('#FFFFFF');
             expect(colour.complementary().hex).toEqual('#FFFFFF');
         });
 
         test('#47FF66', () => {
-            const colour = pigment('#47FF66');
+            const colour = Pigment('#47FF66');
             expect(colour.complementary().hex).toEqual('#FF47E0');
         });
 
         test('#FF47E0', () => {
-            const colour = pigment('#FF47E0');
+            const colour = Pigment('#FF47E0');
             expect(colour.complementary().hex).toEqual('#47FF66');
         });
 
         test('#540EBE', () => {
-            const colour = pigment('#540EBE');
+            const colour = Pigment('#540EBE');
             expect(colour.complementary().hex).toEqual('#78BE0E');
         });
 
         test('#78BE0E', () => {
-            const colour = pigment('#78BE0E');
+            const colour = Pigment('#78BE0E');
             expect(colour.complementary().hex).toEqual('#540EBE');
         });
 
         test('#FFA238', () => {
-            const colour = pigment('#FFA238');
+            const colour = Pigment('#FFA238');
             expect(colour.complementary().hex).toEqual('#3895FF');
         });
 
         test('#3895FF', () => {
-            const colour = pigment('#3895FF');
+            const colour = Pigment('#3895FF');
             expect(colour.complementary().hex).toEqual('#FFA238');
         });
 
         test('#E7E9E9', () => {
-            const colour = pigment('#E7E9E9');
+            const colour = Pigment('#E7E9E9');
             expect(colour.complementary().hex).toEqual('#E9E7E7');
         });
     });
 
     describe('it converts to RGB: ', () => {
         test('#FFFFFF', () => {
-            const colour = pigment('#FFFFFF');
+            const colour = Pigment('#FFFFFF');
             expect(colour.rgb).toEqual([255, 255, 255]);
         });
 
         test('#000000', () => {
-            const colour = pigment('#000000');
+            const colour = Pigment('#000000');
             expect(colour.rgb).toEqual([0, 0, 0]);
         });
 
         test('#F4C542', () => {
-            const colour = pigment('#F4C542');
+            const colour = Pigment('#F4C542');
             expect(colour.rgb).toEqual([244, 197, 66]);
         });
 
         describe('three character colours', () => {
             test('#FFF', () => {
-                const colour = pigment('#FFF');
+                const colour = Pigment('#FFF');
                 expect(colour.hex).toEqual('#FFFFFF');
                 expect(colour.rgb).toEqual([255, 255, 255]);
             });
             test('#F4C', () => {
-                const colour = pigment('#F4C');
+                const colour = Pigment('#F4C');
                 expect(colour.hex).toEqual('#FF44CC');
                 expect(colour.rgb).toEqual([255, 68, 204]);
             });
@@ -93,27 +93,27 @@ describe('getters', () => {
 
     describe('it converts to RGB String: ', () => {
         test('#FFFFFF', () => {
-            const colour = pigment('#FFFFFF');
+            const colour = Pigment('#FFFFFF');
             expect(colour.rgbString).toEqual('255, 255, 255');
         });
 
         test('#000000', () => {
-            const colour = pigment('#000000');
+            const colour = Pigment('#000000');
             expect(colour.rgbString).toEqual('0, 0, 0');
         });
 
         test('#F4C542', () => {
-            const colour = pigment('#F4C542');
+            const colour = Pigment('#F4C542');
             expect(colour.rgbString).toEqual('244, 197, 66');
         });
 
         describe('three character colours', () => {
             test('#FFF', () => {
-                const colour = pigment('#FFF');
+                const colour = Pigment('#FFF');
                 expect(colour.rgbString).toEqual('255, 255, 255');
             });
             test('#F4C', () => {
-                const colour = pigment('#F4C');
+                const colour = Pigment('#F4C');
                 expect(colour.rgbString).toEqual('255, 68, 204');
             });
         });
@@ -122,27 +122,27 @@ describe('getters', () => {
 
     describe('it converts to hslString', () => {
         test('#FFFFFF', () => {
-            const colour = pigment('#FFFFFF');
+            const colour = Pigment('#FFFFFF');
             expect(colour.hslString).toEqual('0, 0, 100');
         });
 
         test('#000000', () => {
-            const colour = pigment('#000000');
+            const colour = Pigment('#000000');
             expect(colour.hslString).toEqual('0, 0, 0');
         });
 
         test('#F4C542', () => {
-            const colour = pigment('#F4C542');
+            const colour = Pigment('#F4C542');
             expect(colour.hslString).toEqual('44.2, 89, 60.8');
         });
 
         test('#F4C', () => {
-            const colour = pigment('#F4C');
+            const colour = Pigment('#F4C');
             expect(colour.hslString).toEqual('316.4, 100, 63.3');
         });
 
         test('#1B156B', () => {
-            const colour = pigment('#1B156B');
+            const colour = Pigment('#1B156B');
             expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
         });
     });
@@ -152,18 +152,18 @@ describe('randomHex', () => {
     let colour;
 
     beforeEach(() => {
-        colour = pigment();
+        colour = Pigment();
     });
 
     test('ensure always valid Hex (test 10,000 times)', () => {
         for (let i = 0; i < 10000; i += 1) {
             expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
-            colour = pigment();
+            colour = Pigment();
         }
 
         for (let i = 0; i < 10000; i += 1) {
             expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
-            colour = pigment();
+            colour = Pigment();
         }
     });
 });
@@ -172,7 +172,7 @@ describe('complementary colour', () => {
     let colour1;
 
     beforeEach(() => {
-        colour1 = pigment();
+        colour1 = Pigment();
     });
 
     test('complementary rotates hue by 180 degrees', () => {
@@ -189,7 +189,7 @@ describe('complementary colour', () => {
 
     test('complementary colour applied twice returns original hex', () => {
         for (let i = 0; i < 100; i += 1) {
-            const colour = pigment();
+            const colour = Pigment();
             const [r1, g1, b1] = colour.rgb;
 
             const [h, s, l] = colour.hsl;
@@ -206,7 +206,7 @@ describe('triadic colour', () => {
     let colour;
 
     beforeEach(() => {
-        colour = pigment();
+        colour = Pigment();
     });
 
     test('triad rotates hue by 120 degrees and returns three colours', () => {
