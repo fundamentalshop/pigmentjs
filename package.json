@@ -1,6 +1,6 @@
 {
   "name": "pigmentjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A zero-dependency colour organisation, creation and manipulation library built for web developers.",
   "main": "dist/pigment.js",
   "scripts": {
@@ -19,7 +19,9 @@
     "url": "https://github.com/JamesToohey/pigmentjs/issues"
   },
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended"]
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ]
   },
   "homepage": "https://github.com/JamesToohey/pigmentjs#readme",
   "devDependencies": {
