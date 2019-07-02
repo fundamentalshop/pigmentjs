@@ -17,9 +17,8 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": ["react", "no-only-tests"],
+    "plugins": ["react"],
     "rules": {
-        "no-only-tests/no-only-tests": "error",
         "indent": ["error", 4],
         "no-console": "warn",
         "comma-dangle": ["warn", "always-multiline"],
