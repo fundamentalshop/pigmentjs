@@ -31,6 +31,12 @@ export default class Colour {
         return this._rgb2hsl(r, g, b);
     }
 
+    get saturation() {
+        const [r, g, b] = this.rgb;
+        const [h, s, l] = this._rgb2hsl(r, g, b);
+        return s;
+    }
+
     get hslString() {
         const [r, g, b] = this.rgb;
         const [h, s, l] = this._rgb2hsl(r, g, b);
@@ -94,6 +100,25 @@ export default class Colour {
         const colour3 = new Colour(hex);
 
         return [this, colour2, colour3];
+    }
+
+    monochrome(size = 5) {
+        const satUnit = 100 / size;
+        const saturations = [];
+
+        for (let steps = size; steps > 0; steps -= 1) {
+            saturations.push(steps * satUnit);
+        }
+
+        const colours = [];
+        for (const sat of saturations) {
+            // create new colour, same hue and lightness
+            const [h, s, l] = this.hsl;
+            const [r, g, b] = this._hsl2rgb(h, sat, l);
+            colours.push(new Colour(this._rgb2hex(r, g, b)));
+        }
+
+        return colours;
     }
 
     // --------------------PRIVATE FUNCTIONS---------------------------
