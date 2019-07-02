@@ -227,3 +227,16 @@ describe('triadic colour', () => {
     });
 
 });
+
+describe('monochromatic colour', () => {
+    let colour;
+
+    beforeEach(() => {
+        colour = Pigment();
+    });
+
+    test('it does not break for now', () => {
+        colour.monochrome();
+    });
+
+});
