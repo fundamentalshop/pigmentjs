@@ -7,7 +7,7 @@
     "test": "jest",
     "build": "webpack",
     "build-watch": "webpack --watch",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import pigment from 'pigmentjs';
+import Pigment from 'pigmentjs';
 import './App.css';
 
 
@@ -11,12 +11,12 @@ function GridTile(props) {
 }
 
 function App() {
-    const [_colour, setColour] = useState(pigment());
+    const [_colour, setColour] = useState(Pigment());
 
     const colours = [];
 
     for(let i = 0; i < 200; i += 1) {
-        colours.push(pigment());
+        colours.push(Pigment());
     }
 
     const cols = Math.round(Math.sqrt(200));
@@ -31,7 +31,7 @@ function App() {
             >
                 { colours && colours.map(c => (<GridTile colour={c}/>)) }
             </div>
-            <button onClick={() => setColour(pigment())}>Randomise</button>
+            <button onClick={() => setColour(Pigment())}>Randomise</button>
         </div>
     );
 }

@@ -1,5 +1,7 @@
 import Colour from './colour';
+import ColourPalette from './colour-palette';
 
-const pigment = hex => new Colour(hex);
+const Pigment = hex => new Colour(hex);
+export const Palette = p => new ColourPalette(p);
 
-export default pigment;
+export default Pigment;
