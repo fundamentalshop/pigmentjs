@@ -8,7 +8,7 @@
     "build": "webpack",
     "build-watch": "webpack --watch",
     "prepublishOnly": "npm run build",
-    "version:patch": "npm version patch && git push --tags"
+    "version:patch": "npm version patch && git push && git push --tags"
   },
   "repository": {
     "type": "git",
