@@ -7,7 +7,7 @@ export class Palette {
             try {
                 colour = new Pigment(colour);
             } catch (e) {
-                throw new Error('ColourPalette must be instantiated with either an instance of Pigment or a hex string');
+                throw new Error('Palette must be instantiated with either an instance of Pigment or a hex string');
             }
         }
         this.primary = colour;
