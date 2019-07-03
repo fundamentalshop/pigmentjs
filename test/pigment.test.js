@@ -171,12 +171,9 @@ describe('randomHex', () => {
 describe('complementary colour', () => {
     let colour1;
 
-    beforeEach(() => {
-        colour1 = Pigment();
-    });
-
     test('complementary rotates hue by 180 degrees', () => {
         for (let i = 0; i < 10000; i += 1) {
+            colour1 = Pigment();
             const [h1] = colour1.hsl;
             const colour2 = colour1.complementary();
             const [h2] = colour2.hsl;
@@ -205,12 +202,9 @@ describe('complementary colour', () => {
 describe('triadic colour', () => {
     let colour;
 
-    beforeEach(() => {
-        colour = Pigment();
-    });
-
     test('triad rotates hue by 120 degrees and returns three colours', () => {
         for (let i = 0; i < 10000; i += 1) {
+            colour = Pigment();
             const [colour1, colour2, colour3] = colour.triad();
             const [h1] = colour1.hsl;
             const [h2] = colour2.hsl;
@@ -229,14 +223,8 @@ describe('triadic colour', () => {
 });
 
 describe('monochromatic colour', () => {
-    let colour;
-
-    beforeEach(() => {
-        colour = Pigment();
+    test('all colours returned retain the same hue', () => {
+        // TODO: Currently the hue can vary, sometimes up to 4 or 5.
+        //  Need to investigate where the rounding error is
     });
-
-    test('it does not break for now', () => {
-        colour.monochrome();
-    });
-
 });

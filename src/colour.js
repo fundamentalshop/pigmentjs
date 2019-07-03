@@ -31,10 +31,22 @@ export default class Colour {
         return this._rgb2hsl(r, g, b);
     }
 
+    get hue() {
+        const [r, g, b] = this.rgb;
+        const [h] = this._rgb2hsl(r, g, b);
+        return h;
+    }
+
     get saturation() {
         const [r, g, b] = this.rgb;
         const [h, s, l] = this._rgb2hsl(r, g, b);
         return s;
+    }
+
+    get lightness() {
+        const [r, g, b] = this.rgb;
+        const [h, s, l] = this._rgb2hsl(r, g, b);
+        return l;
     }
 
     get hslString() {
@@ -109,6 +121,7 @@ export default class Colour {
         for (let steps = size; steps > 0; steps -= 1) {
             saturations.push(steps * satUnit);
         }
+        saturations.sort((a, b) => a - b);
 
         const colours = [];
         for (const sat of saturations) {
