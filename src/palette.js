@@ -1,11 +1,11 @@
-import Colour from './colour';
+import Pigment from './pigment';
 
 
-export default class ColourPalette {
+export class Palette {
     constructor(colour) {
-        if (!(colour instanceof Colour)) {
+        if (!(colour instanceof Pigment)) {
             try {
-                colour = new Colour(colour);
+                colour = new Pigment(colour);
             } catch (e) {
                 throw new Error('ColourPalette must be instantiated with either an instance of Pigment or a hex string');
             }
@@ -18,3 +18,5 @@ export default class ColourPalette {
         return [this.primary.hex, this.complementary.hex];
     }
 }
+
+export default Palette;

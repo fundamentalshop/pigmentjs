@@ -1,4 +1,4 @@
-import Pigment from '../src/pigment';
+import Pigment from '../src/index';
 
 
 describe('Pigment instantiation', () => {
