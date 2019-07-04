@@ -4,16 +4,16 @@ import './App.css';
 
 
 function GridTile(props) {
-    const {colour} = props;
+    const {colour, mode} = props;
     return (
         <div style={{display: 'flex', border: '1px solid white'}}>
             {
-                colour.monochrome().map(
+                colour.monochrome(4, mode).map(
                     (c, i) => <div key={i} className="grid-tile" style={{backgroundColor: c.hex, flex: 1}} />
                 )
             }
             {
-                colour.complementary().monochrome().map(
+                colour.complementary().monochrome(4, mode).map(
                     (c, i) => <div key={i} className="grid-tile" style={{backgroundColor: c.hex, flex: 1}} />
                 )
             }
@@ -23,8 +23,9 @@ function GridTile(props) {
 
 function App() {
     const [_colour, setColour] = useState(Pigment());
+    const [_monochromeMode, setMonochromeMode] = useState('tint');
 
-    const colours = [];
+    const colours = [_colour];
 
     for(let i = 0; i < 200; i += 1) {
         colours.push(Pigment());
@@ -43,12 +44,20 @@ function App() {
                 {
                     colours && colours.map(
                         (c, i) => (
-                            <GridTile key={i} colour={c} />
+                            <GridTile key={i} colour={c} mode={_monochromeMode} />
                         )
                     )
                 }
             </div>
-            <button onClick={() => setColour(Pigment())}>Randomise</button>
+            <div className="controls">
+                <input type="radio" checked={ _monochromeMode === 'tint'} name='tint' onClick={() => setMonochromeMode('tint')}/>
+                <label>Tint</label>
+                <input type="radio" checked={ _monochromeMode === 'shade'} name='shade' onClick={() => setMonochromeMode('shade')}/>
+                <label>Shade</label>
+                <input type="radio" checked={ _monochromeMode === 'saturation'} name='saturation' onClick={() => setMonochromeMode('saturation')}/>
+                <label>Saturation</label>
+                <button onClick={() => setColour(Pigment())}>Randomise</button>
+            </div>
         </div>
     );
 }
