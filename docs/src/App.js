@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pigment, {Palette} from 'pigmentjs';
 import './App.css';
 
@@ -17,15 +17,14 @@ function GridTile(props) {
     );
 }
 
+let colours = Array(200).fill().map(() => Pigment());
+
 function App() {
     const [_colour, setColour] = useState(Pigment());
     const [_monochromeMode, setMonochromeMode] = useState('shade');
-
-    const colours = [_colour];
-
-    for(let i = 0; i < 200; i += 1) {
-        colours.push(Pigment());
-    }
+    useEffect(() => {
+        colours = Array(200).fill().map(() => Pigment());
+    }, [_colour]);
 
     const cols = Math.round(Math.sqrt(200));
 
