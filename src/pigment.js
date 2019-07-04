@@ -1,5 +1,5 @@
 export const MODE_SHADE = 'shade';
-export const MODE_TINT = 'tint';
+export const MODE_TINT = 'tint'; // TODO
 export const MODE_SATURATION = 'saturation';
 
 
@@ -135,15 +135,6 @@ export class Pigment {
                     r = Math.round(r - (r * shade));
                     g = Math.round(g - (g * shade));
                     b = Math.round(b - (b * shade));
-                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
-                }
-                break;
-            case MODE_TINT:
-                for (const tint of percentages) {
-                    let [r, g, b] = this.rgb;
-                    r = 255 - Math.round(r - (r * tint));
-                    g = 255 - Math.round(g - (g * tint));
-                    b = 255 - Math.round(b - (b * tint));
                     Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
                 }
                 break;
