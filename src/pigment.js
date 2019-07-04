@@ -1,3 +1,8 @@
+export const MODE_SHADE = 'shade';
+export const MODE_TINT = 'tint';
+export const MODE_SATURATION = 'saturation';
+
+
 export class Pigment {
     constructor(hex) {
         this.hex = hex || this._randomHex();
@@ -114,21 +119,42 @@ export class Pigment {
         return [this, Pigment2, Pigment3];
     }
 
-    monochrome(size = 5) {
-        const satUnit = 100 / size;
-        const saturations = [];
-
+    monochrome(size, mode = MODE_SATURATION) {
+        const satUnit = 1 / (size + 1);
+        const percentages = [];
         for (let steps = size; steps > 0; steps -= 1) {
-            saturations.push(steps * satUnit);
+            percentages.push(steps * satUnit);
         }
-        saturations.sort((a, b) => a - b);
+        percentages.sort((a, b) => a - b);
 
         const Pigments = [];
-        for (const sat of saturations) {
-            // create new Pigment, same hue and lightness
-            const [h, s, l] = this.hsl;
-            const [r, g, b] = this._hsl2rgb(h, sat, l);
-            Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
+        switch(mode) {
+            case MODE_SHADE:
+                for (const shade of percentages) {
+                    let [r, g, b] = this.rgb;
+                    r = Math.round(r - (r * shade));
+                    g = Math.round(g - (g * shade));
+                    b = Math.round(b - (b * shade));
+                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
+                }
+                break;
+            case MODE_TINT:
+                for (const tint of percentages) {
+                    let [r, g, b] = this.rgb;
+                    r = 255 - Math.round(r - (r * tint));
+                    g = 255 - Math.round(g - (g * tint));
+                    b = 255 - Math.round(b - (b * tint));
+                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
+                }
+                break;
+            case MODE_SATURATION:
+                for (let sat of percentages) {
+                    sat = sat * 100;
+                    const [h, s, l] = this.hsl;
+                    const [r, g, b] = this._hsl2rgb(h, sat, l);
+                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
+                }
+                break;
         }
 
         return Pigments;
@@ -177,15 +203,15 @@ export class Pigment {
         }
 
         switch (max) {
-        case r:
-            hue = ((g - b) / (max - min)) * 60;
-            break;
-        case g:
-            hue = (2.0 + (b - r) / (max - min)) * 60;
-            break;
-        case b:
-            hue = (4.0 + (r - g) / (max - min)) * 60;
-            break;
+            case r:
+                hue = ((g - b) / (max - min)) * 60;
+                break;
+            case g:
+                hue = (2.0 + (b - r) / (max - min)) * 60;
+                break;
+            case b:
+                hue = (4.0 + (r - g) / (max - min)) * 60;
+                break;
         }
 
         if (hue < 0) {

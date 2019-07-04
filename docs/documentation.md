@@ -121,15 +121,21 @@ pigment.triad(); // [colour, Pigment(), Pigment()]
 
 ---
 
-`Pigment().monochrome()`
+`Pigment().monochrome(5)`
 
-Returns an array of colours with a similar (very close to) Hue as the input but with varying levels of saturation.
+Returns an array of colours with a monochromatic relationship to the input colour.
 
 Params
 
-Size (default = 5)
+Size [Int] (required)
 
 - How many new colours to return
+
+Mode [String] (default 'saturation')
+
+- 'saturation': Keep Hue the same, adjust saturation
+- 'shade': Add black to colour
+- 'tint': Add white to colour
 
 
 ```javascript
