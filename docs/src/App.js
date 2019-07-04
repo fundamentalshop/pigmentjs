@@ -45,9 +45,9 @@ function App() {
                 }
             </div>
             <div className="controls">
-                <input type="radio" checked={ _monochromeMode === 'shade'} name='shade' onClick={() => setMonochromeMode('shade')}/>
+                <input type="radio" checked={ _monochromeMode === 'shade'} name='shade' onChange={() => setMonochromeMode('shade')}/>
                 <label>Shade</label>
-                <input type="radio" checked={ _monochromeMode === 'saturation'} name='saturation' onClick={() => setMonochromeMode('saturation')}/>
+                <input type="radio" checked={ _monochromeMode === 'saturation'} name='saturation' onChange={() => setMonochromeMode('saturation')}/>
                 <label>Saturation</label>
                 <button onClick={() => setColour(Pigment())}>Randomise</button>
             </div>
