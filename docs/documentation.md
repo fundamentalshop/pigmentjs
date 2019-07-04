@@ -135,7 +135,6 @@ Mode [String] (default 'saturation')
 
 - 'saturation': Keep Hue the same, adjust saturation
 - 'shade': Add black to colour
-- 'tint': Add white to colour
 
 
 ```javascript
