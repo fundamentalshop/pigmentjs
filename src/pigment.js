@@ -60,6 +60,26 @@ export class Pigment {
         return `${h}, ${s}, ${l}`;
     }
 
+    // https://www.w3.orgaTR/WCAG20/#relativeluminancedef
+    // https://planetcalc.com/7779/
+    // https://medium.muz.li/the-science-of-color-contrast-an-expert-designers-guide-33e84c41d156
+    get relativeLuminance() {
+        let [r, g, b] = this.rgb;
+        r /= 255;
+        g /= 255;
+        b /= 255;
+
+    }
+
+    text() {
+        // calculate luminance of this.hex
+        // if < 50, return white else return black
+        // use luminance constants of white and black
+
+        // return whichever has a higher ratio
+        // (L1 + 0.05) / (L2 + 0.05) where L1 is the lighter of the colours
+    }
+
     /**
      * Convert to HSL, rotate hue 180 degrees, convert
      * back to RGB and instantiate pigmentjs with hex
