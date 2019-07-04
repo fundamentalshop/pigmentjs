@@ -22,6 +22,7 @@ let colours = Array(200).fill().map(() => Pigment());
 function App() {
     const [_colour, setColour] = useState(Pigment());
     const [_monochromeMode, setMonochromeMode] = useState('shade');
+
     useEffect(() => {
         colours = Array(200).fill().map(() => Pigment());
     }, [_colour]);
