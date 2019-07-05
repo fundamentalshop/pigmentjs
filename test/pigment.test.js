@@ -177,20 +177,15 @@ describe('getters', () => {
 
 describe('randomHex', () => {
     let colour;
-
-    beforeEach(() => {
-        colour = Pigment();
-    });
-
     test('ensure always valid Hex (test 10,000 times)', () => {
         for (let i = 0; i < 10000; i += 1) {
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
             colour = Pigment();
+            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
         }
 
         for (let i = 0; i < 10000; i += 1) {
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
             colour = Pigment();
+            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
         }
     });
 });
