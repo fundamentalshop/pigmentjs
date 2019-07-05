@@ -146,6 +146,33 @@ describe('getters', () => {
             expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
         });
     });
+
+    describe('it returns black or white text for highest contrast', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.textColourHex).toEqual('#000000');
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#FF44CC', () => {
+            const colour = Pigment('#FF44CC');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.textColourHex).toEqual('#000000');
+        });
+    });
 });
 
 describe('randomHex', () => {

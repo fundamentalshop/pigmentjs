@@ -79,7 +79,7 @@ export class Pigment {
      *
      * @returns {String} either '#FFFFFF' or '#000000'
      */
-    get monoTextColourHex() {
+    get textColourHex() {
         const luminance = this.relativeLuminance;
         return (luminance < 0.5) ? '#FFFFFF' : '#000000';
     }
