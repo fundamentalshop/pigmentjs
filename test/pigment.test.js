@@ -228,3 +228,14 @@ describe('monochromatic colour', () => {
         //  Need to investigate where the rounding error is
     });
 });
+
+describe('relative luminance', () => {
+    let colour;
+
+    test('it returns a number between 0 and 1', () => {
+        for (let i = 0; i < 10000; i += 1) {
+            colour = Pigment();
+            expect(colour.relativeLuminance).toBeLessThanOrEqual(1);
+        }
+    });
+});

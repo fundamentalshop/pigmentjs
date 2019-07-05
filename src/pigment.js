@@ -60,24 +60,27 @@ export class Pigment {
         return `${h}, ${s}, ${l}`;
     }
 
-    // https://www.w3.orgaTR/WCAG20/#relativeluminancedef
     // https://planetcalc.com/7779/
     // https://medium.muz.li/the-science-of-color-contrast-an-expert-designers-guide-33e84c41d156
+    // https://github.com/tmcw/relative-luminance
     get relativeLuminance() {
         let [r, g, b] = this.rgb;
-        r /= 255;
-        g /= 255;
-        b /= 255;
 
+        const lowCoefficient = 1 / 12.92;
+        const rsRGB = r / 255;
+        const gsRGB = g / 255;
+        const bsRGB = b / 255;
+
+        r = rsRGB <= 0.03928 ? rsRGB * lowCoefficient : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
+        g = gsRGB <= 0.03928 ? gsRGB * lowCoefficient : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
+        b = bsRGB <= 0.03928 ? bsRGB * lowCoefficient : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
+
+        return (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
     }
 
-    text() {
-        // calculate luminance of this.hex
-        // if < 50, return white else return black
-        // use luminance constants of white and black
-
-        // return whichever has a higher ratio
-        // (L1 + 0.05) / (L2 + 0.05) where L1 is the lighter of the colours
+    get monoTextColourHex() {
+        const luminance = this.relativeLuminance;
+        return (luminance < 0.5) ? '#FFFFFF' : '#000000';
     }
 
     /**
