@@ -261,9 +261,9 @@ export class Pigment {
             r = chroma; g = 0; b = x;
         }
 
-        r = Math.round((r + m) * 255);
-        g = Math.round((g + m) * 255);
-        b = Math.round((b + m) * 255);
+        r = Math.abs(Math.round((r + m) * 255));
+        g = Math.abs(Math.round((g + m) * 255));
+        b = Math.abs(Math.round((b + m) * 255));
 
         return [r, g, b];
     }
