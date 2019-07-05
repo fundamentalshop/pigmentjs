@@ -1,0 +1,10 @@
+https://planetcalc.com/7779/
+https://medium.muz.li/the-science-of-color-contrast-an-expert-designers-guide-33e84c41d156
+https://github.com/tmcw/relative-luminance
+https://css-tricks.com/converting-color-spaces-in-javascript/
+https://medium.com/@donatbalipapp/Pigments-maths-90346fb5abda
+http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+https://serennu.com/Pigment/hsltorgb.php
+https://www.rapidtables.com/convert/color/hsl-to-rgb.html
+https://css-tricks.com/converting-color-spaces-in-javascript/
+https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB

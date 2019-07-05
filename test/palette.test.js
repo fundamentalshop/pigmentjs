@@ -1,11 +1,11 @@
 import Pigment, { Palette } from '../src/index';
 
 
-describe('Palette toHexArray', () => {
+describe('Palette instantiation', () => {
     test('it returns source colour and complementary colour', () => {
-        const palette = Palette(Pigment('#47FF66'));
-        for (const hexString of palette.monochromeHexArray()) {
-            expect(hexString).toBeHexadecimal();
-        }
+        const colour = Pigment('#47FF66');
+        const palette = Palette(colour);
+        expect(palette.primary).toEqual(colour);
+        expect(palette.complementary).toEqual(colour.complementary());
     });
 });

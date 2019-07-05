@@ -146,24 +146,46 @@ describe('getters', () => {
             expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
         });
     });
+
+    describe('it returns black or white text for highest contrast', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.textColourHex).toEqual('#000000');
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#FF44CC', () => {
+            const colour = Pigment('#FF44CC');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.textColourHex).toEqual('#000000');
+        });
+    });
 });
 
 describe('randomHex', () => {
     let colour;
-
-    beforeEach(() => {
-        colour = Pigment();
-    });
-
     test('ensure always valid Hex (test 10,000 times)', () => {
         for (let i = 0; i < 10000; i += 1) {
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
             colour = Pigment();
+            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
         }
 
         for (let i = 0; i < 10000; i += 1) {
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
             colour = Pigment();
+            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
         }
     });
 });
@@ -174,18 +196,17 @@ describe('complementary colour', () => {
     test('complementary rotates hue by 180 degrees', () => {
         for (let i = 0; i < 10000; i += 1) {
             colour1 = Pigment();
-            const [h1] = colour1.hsl;
+            const hue1 = Math.round(colour1.hue);
             const colour2 = colour1.complementary();
-            const [h2] = colour2.hsl;
+            const hue2 = Math.round(colour2.hue);
 
-            const hue1 = Math.round(h1);
-            const hue2 = Math.round(h2);
-            expect(Math.abs(hue2 - hue1)).toEqual(180);
+            // anything at the centre of the colour wheel may retain its hue
+            expect(Math.abs(hue2 - hue1)).toBeOneOf([180, 0]);
         }
     });
 
     test('complementary colour applied twice returns original hex', () => {
-        for (let i = 0; i < 100; i += 1) {
+        for (let i = 0; i < 10000; i += 1) {
             const colour = Pigment();
             const [r1, g1, b1] = colour.rgb;
 
@@ -206,17 +227,18 @@ describe('triadic colour', () => {
         for (let i = 0; i < 10000; i += 1) {
             colour = Pigment();
             const [colour1, colour2, colour3] = colour.triad();
-            const [h1] = colour1.hsl;
-            const [h2] = colour2.hsl;
-            const [h3] = colour3.hsl;
+            const h1 = colour1.hue;
+            const h2 = colour2.hue;
+            const h3 = colour3.hue;
 
             const hue1 = Math.round(h1);
             const hue2 = Math.round(h2);
             const hue3 = Math.round(h3);
 
             const hues = [hue1, hue2, hue3];
-            expect(Math.abs(hues[0] - hues[1])).toBeOneOf([120, 240]);
-            expect(Math.abs(hues[1] - hues[2])).toBeOneOf([120, 240]);
+            // anything at the centre of the colour wheel may retain its hue
+            expect(Math.abs(hues[0] - hues[1])).toBeOneOf([120, 240, 0]);
+            expect(Math.abs(hues[1] - hues[2])).toBeOneOf([120, 240, 0]);
         }
     });
 
@@ -226,5 +248,16 @@ describe('monochromatic colour', () => {
     test('all colours returned retain the same hue', () => {
         // TODO: Currently the hue can vary, sometimes up to 4 or 5.
         //  Need to investigate where the rounding error is
+    });
+});
+
+describe('relative luminance', () => {
+    let colour;
+
+    test('it returns a number between 0 and 1', () => {
+        for (let i = 0; i < 10000; i += 1) {
+            colour = Pigment();
+            expect(colour.relativeLuminance).toBeLessThanOrEqual(1);
+        }
     });
 });

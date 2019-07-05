@@ -1,5 +1,4 @@
 export const MODE_SHADE = 'shade';
-export const MODE_TINT = 'tint'; // TODO
 export const MODE_SATURATION = 'saturation';
 
 
@@ -30,7 +29,6 @@ export class Pigment {
         return `${r}, ${g}, ${b}`;
     }
 
-
     get hsl() {
         const [r, g, b] = this.rgb;
         return this._rgb2hsl(r, g, b);
@@ -58,6 +56,32 @@ export class Pigment {
         const [r, g, b] = this.rgb;
         const [h, s, l] = this._rgb2hsl(r, g, b);
         return `${h}, ${s}, ${l}`;
+    }
+
+    get relativeLuminance() {
+        let [r, g, b] = this.rgb;
+
+        const lowCoefficient = 1 / 12.92;
+        const rsRGB = r / 255;
+        const gsRGB = g / 255;
+        const bsRGB = b / 255;
+
+        r = rsRGB <= 0.03928 ? rsRGB * lowCoefficient : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
+        g = gsRGB <= 0.03928 ? gsRGB * lowCoefficient : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
+        b = bsRGB <= 0.03928 ? bsRGB * lowCoefficient : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
+
+        return (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
+    }
+
+    /**
+     * Return either white or black depending on the relative luminance
+     * of the primary colour. Can be used to ensure text is legible
+     *
+     * @returns {String} either '#FFFFFF' or '#000000'
+     */
+    get textColourHex() {
+        const luminance = this.relativeLuminance;
+        return (luminance < 0.5) ? '#FFFFFF' : '#000000';
     }
 
     /**
@@ -151,8 +175,6 @@ export class Pigment {
         return Pigments;
     }
 
-    // --------------------PRIVATE FUNCTIONS---------------------------
-
     _randomHex() {
         let r = Math.round(Math.random() * (255)).toString(16);
         if (r.toString().length === 1)  {
@@ -171,9 +193,6 @@ export class Pigment {
         return `#${r}${g}${b}`.toUpperCase();
     }
 
-    // https://medium.com/@donatbalipapp/Pigments-maths-90346fb5abda
-    // http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
-    // https://serennu.com/Pigment/hsltorgb.php
     _rgb2hsl(r, g, b) {
         let hue;
         let sat;
@@ -216,9 +235,6 @@ export class Pigment {
         return [hue || 0, sat || 0, light];
     }
 
-    // https://www.rapidtables.com/convert/color/hsl-to-rgb.html
-    // https://css-tricks.com/converting-color-spaces-in-javascript/
-    // https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB
     _hsl2rgb(hue, sat, light) {
         sat /= 100;
         light /= 100;
@@ -245,14 +261,13 @@ export class Pigment {
             r = chroma; g = 0; b = x;
         }
 
-        r = Math.round((r + m) * 255);
-        g = Math.round((g + m) * 255);
-        b = Math.round((b + m) * 255);
+        r = Math.abs(Math.round((r + m) * 255));
+        g = Math.abs(Math.round((g + m) * 255));
+        b = Math.abs(Math.round((b + m) * 255));
 
         return [r, g, b];
     }
 
-    // https://css-tricks.com/converting-color-spaces-in-javascript/
     _rgb2hex(r, g, b) {
         r = Number(r).toString(16);
         g = Number(g).toString(16);
