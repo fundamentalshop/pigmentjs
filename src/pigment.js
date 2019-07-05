@@ -87,7 +87,7 @@ export class Pigment {
         return [this, Pigment2, Pigment3];
     }
 
-    monochrome(size, mode = MODE_SATURATION) {
+    monochrome(size) {
         const satUnit = 1 / (size + 1);
         const percentages = [];
         for (let steps = size; steps > 0; steps -= 1) {
@@ -95,28 +95,28 @@ export class Pigment {
         }
         percentages.sort((a, b) => a - b);
 
-        const Pigments = [];
-        switch(mode) {
-            case MODE_SHADE:
-                for (const shade of percentages) {
-                    let [r, g, b] = this.rgb;
-                    r = Math.round(r - (r * shade));
-                    g = Math.round(g - (g * shade));
-                    b = Math.round(b - (b * shade));
-                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
-                }
-                break;
-            case MODE_SATURATION:
-                for (let sat of percentages) {
-                    sat = sat * 100;
-                    const [h, s, l] = this.hsl;
-                    const [r, g, b] = this._hsl2rgb(h, sat, l);
-                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
-                }
-                break;
-        }
+        return percentages.map((saturation) => {
+            saturation = saturation * 100;
+            const [r, g, b] = this._hsl2rgb(this.hue, saturation, this.lightness);
+            return new Pigment(this._rgb2hex(r, g, b));
+        });
+    }
 
-        return Pigments;
+    shades(size) {
+        const shadeUnit = 1 / (size + 1);
+        const percentages = [];
+        for (let steps = size; steps > 0; steps -= 1) {
+            percentages.push(steps * shadeUnit);
+        }
+        percentages.sort((a, b) => a - b);
+
+        return percentages.map((shade) => {
+            let [r, g, b] = this.rgb;
+            r = Math.round(r - (r * shade));
+            g = Math.round(g - (g * shade));
+            b = Math.round(b - (b * shade));
+            return new Pigment(this._rgb2hex(r, g, b));
+        });
     }
 
     /* ------------------PRIVATE FUNCTIONS------------------ */
