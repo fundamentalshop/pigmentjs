@@ -23,23 +23,6 @@ const complementary = pigment.complementary().hex; // '#E609FF'
 const triad = pigment.triad(); // [Pigment(), Pigment(), Pigment()]; 
 ```
 
-#### Use Palette
-```javascript
-import Pigment, { Palette } from 'pigmentjs';
-
-Palette(); // random colour
-Palette('#22FF09');
-Palette(Pigment('#22FF09'));
-```
-
-Create palettes
-```javascript
-const palette = Palette('#22FF09');
-
-// NOTE: toHexArray() currently returns the input Hex and complementary Hex
-palette.toHexArray(); // ['#22FF09', '#EF38E6'] 
-```
-
 ## Pigment()
 
 ### API
@@ -134,29 +117,12 @@ Size [Int] (required)
 Mode [String] (default 'saturation')
 
 - 'saturation': Keep Hue the same, adjust saturation
-- 'shade': Add black to colour
+- 'shade': Add % black to colour
 
 
 ```javascript
 const pigment = Pigment();
 pigment.monochrome(3); // [Pigment(), Pigment(), Pigment()]
-```
-
----
-
-## Palette()
-
-### API
-
-#### Methods
-
-`Palette().toHexArray()`
-
-Returns an array of Hex strings, currently just the input colour and its complementary colour.
-
-```javascript
-const palette = Palette('#22FF09');
-palette.toHexArray(); // ['#22FF09', '#EF38E6'] 
 ```
 
 ---
