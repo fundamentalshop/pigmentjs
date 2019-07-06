@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import Pigment, {Palette} from 'pigmentjs';
+import Pigment from 'pigmentjs';
 import './App.css';
 
 
 function GridTile(props) {
     const {colour, mode} = props;
-    const palette = Palette(colour).monochromeHexArray(mode);
+    let palette;
+    if (mode === 'shade') {
+        palette = colour.shades(5);
+    } else {
+        palette = colour.monochrome(5);
+    }
     return (
         <div style={{display: 'flex', border: '4px solid white'}}>
             {
                 palette.map(
-                    (c, i) => <div key={i} className="grid-tile" style={{backgroundColor: c, flex: 1}} />
+                    (c, i) => <div key={i} className="grid-tile" style={{backgroundColor: c.hex, flex: 1}} />
                 )
             }
         </div>
