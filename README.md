@@ -155,5 +155,4 @@ pigment.shades(3); // [Pigment(), Pigment(), Pigment()]
 
 ---
 
-
 ### [Dev README](https://github.com/JamesToohey/pigmentjs/blob/master/docs/dev.md)
