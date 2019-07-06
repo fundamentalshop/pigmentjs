@@ -32,7 +32,9 @@
     "build": "webpack",
     "build-watch": "webpack --watch",
     "prepublishOnly": "npm run build",
-    "publish:patch": "npm version patch && git push && git push --tags && npm publish"
+    "git:publish": "git push && git push --tags && npm publish",
+    "publish:minor": "npm version minor && npm run git:publish",
+    "publish:patch": "npm version patch && npm run git:publish"
   },
   "jest": {
     "setupFilesAfterEnv": [
