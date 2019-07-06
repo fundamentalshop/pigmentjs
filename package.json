@@ -2,29 +2,45 @@
   "name": "pigmentjs",
   "version": "0.1.10",
   "description": "A zero-dependency colour organisation, creation and manipulation library built for web developers.",
+  "keywords": [
+    "color",
+    "colour",
+    "palette",
+    "complementary",
+    "monochrome"
+  ],
+  "author": "James Toohey",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "James Toohey",
+      "email": "hello@toohey.io",
+      "web": "https://toohey.io"
+    }
+  ],
+  "homepage": "https://github.com/fundamentalshop/pigmentjs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fundamentalshop/pigmentjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fundamentalshop/pigmentjs/issues"
+  },
   "main": "dist/pigment.js",
   "scripts": {
     "test": "jest",
     "build": "webpack",
     "build-watch": "webpack --watch",
     "prepublishOnly": "npm run build",
-    "publish:patch": "npm version patch && git push && git push --tags && npm publish"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JamesToohey/pigmentjs.git"
-  },
-  "author": "James Toohey",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/JamesToohey/pigmentjs/issues"
+    "git:publish": "git push && git push --tags && npm publish",
+    "publish:minor": "npm version minor && npm run git:publish",
+    "publish:patch": "npm version patch && npm run git:publish"
   },
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended"
     ]
   },
-  "homepage": "https://github.com/JamesToohey/pigmentjs#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",

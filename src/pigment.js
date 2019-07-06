@@ -1,6 +1,3 @@
-export const MODE_SHADE = 'shade';
-export const MODE_SATURATION = 'saturation';
-
 
 export class Pigment {
     constructor(hex) {
@@ -15,73 +12,17 @@ export class Pigment {
         } else if (this.hex.length === 4) {
             this.hex = `#${this.hex[1]}${this.hex[1]}${this.hex[2]}${this.hex[2]}${this.hex[3]}${this.hex[3]}`;
         }
-    }
 
-    get rgb() {
-        const r = parseInt(this.hex.substring(1, 3), 16);
-        const g = parseInt(this.hex.substring(3, 5), 16);
-        const b = parseInt(this.hex.substring(5, 7), 16);
-        return [r, g, b];
-    }
-
-    get rgbString() {
-        const [r, g, b] = this.rgb;
-        return `${r}, ${g}, ${b}`;
-    }
-
-    get hsl() {
-        const [r, g, b] = this.rgb;
-        return this._rgb2hsl(r, g, b);
-    }
-
-    get hue() {
-        const [r, g, b] = this.rgb;
-        const [h] = this._rgb2hsl(r, g, b);
-        return h;
-    }
-
-    get saturation() {
-        const [r, g, b] = this.rgb;
-        const [h, s, l] = this._rgb2hsl(r, g, b);
-        return s;
-    }
-
-    get lightness() {
-        const [r, g, b] = this.rgb;
-        const [h, s, l] = this._rgb2hsl(r, g, b);
-        return l;
-    }
-
-    get hslString() {
-        const [r, g, b] = this.rgb;
-        const [h, s, l] = this._rgb2hsl(r, g, b);
-        return `${h}, ${s}, ${l}`;
-    }
-
-    get relativeLuminance() {
-        let [r, g, b] = this.rgb;
-
-        const lowCoefficient = 1 / 12.92;
-        const rsRGB = r / 255;
-        const gsRGB = g / 255;
-        const bsRGB = b / 255;
-
-        r = rsRGB <= 0.03928 ? rsRGB * lowCoefficient : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
-        g = gsRGB <= 0.03928 ? gsRGB * lowCoefficient : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
-        b = bsRGB <= 0.03928 ? bsRGB * lowCoefficient : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
-
-        return (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
-    }
-
-    /**
-     * Return either white or black depending on the relative luminance
-     * of the primary colour. Can be used to ensure text is legible
-     *
-     * @returns {String} either '#FFFFFF' or '#000000'
-     */
-    get textColourHex() {
-        const luminance = this.relativeLuminance;
-        return (luminance < 0.5) ? '#FFFFFF' : '#000000';
+        // Set these once, Pigment is immutable
+        this.rgb = this._rgb();
+        this.rgbString = this._rgbString();
+        this.hsl = this._hsl();
+        this.hue = this._hue();
+        this.saturation = this._saturation();
+        this.lightness = this._lightness();
+        this.hslString = this._hslString();
+        this.relativeLuminance = this._relativeLuminance();
+        this.textColourHex = this._textColourHex();
     }
 
     /**
@@ -143,7 +84,7 @@ export class Pigment {
         return [this, Pigment2, Pigment3];
     }
 
-    monochrome(size, mode = MODE_SATURATION) {
+    monochrome(size) {
         const satUnit = 1 / (size + 1);
         const percentages = [];
         for (let steps = size; steps > 0; steps -= 1) {
@@ -151,29 +92,31 @@ export class Pigment {
         }
         percentages.sort((a, b) => a - b);
 
-        const Pigments = [];
-        switch(mode) {
-            case MODE_SHADE:
-                for (const shade of percentages) {
-                    let [r, g, b] = this.rgb;
-                    r = Math.round(r - (r * shade));
-                    g = Math.round(g - (g * shade));
-                    b = Math.round(b - (b * shade));
-                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
-                }
-                break;
-            case MODE_SATURATION:
-                for (let sat of percentages) {
-                    sat = sat * 100;
-                    const [h, s, l] = this.hsl;
-                    const [r, g, b] = this._hsl2rgb(h, sat, l);
-                    Pigments.push(new Pigment(this._rgb2hex(r, g, b)));
-                }
-                break;
-        }
-
-        return Pigments;
+        return percentages.map((saturation) => {
+            saturation = saturation * 100;
+            const [r, g, b] = this._hsl2rgb(this.hue, saturation, this.lightness);
+            return new Pigment(this._rgb2hex(r, g, b));
+        });
     }
+
+    shades(size) {
+        const shadeUnit = 1 / (size + 1);
+        const percentages = [];
+        for (let steps = size; steps > 0; steps -= 1) {
+            percentages.push(steps * shadeUnit);
+        }
+        percentages.sort((a, b) => a - b);
+
+        return percentages.map((shade) => {
+            let [r, g, b] = this.rgb;
+            r = Math.round(r - (r * shade));
+            g = Math.round(g - (g * shade));
+            b = Math.round(b - (b * shade));
+            return new Pigment(this._rgb2hex(r, g, b));
+        });
+    }
+
+    /* ------------------PRIVATE FUNCTIONS------------------ */
 
     _randomHex() {
         let r = Math.round(Math.random() * (255)).toString(16);
@@ -284,6 +227,73 @@ export class Pigment {
         }
 
         return `#${r}${g}${b}`;
+    }
+
+    _rgb() {
+        const r = parseInt(this.hex.substring(1, 3), 16);
+        const g = parseInt(this.hex.substring(3, 5), 16);
+        const b = parseInt(this.hex.substring(5, 7), 16);
+        return [r, g, b];
+    }
+
+    _rgbString() {
+        const [r, g, b] = this.rgb;
+        return `${r}, ${g}, ${b}`;
+    }
+
+    _hsl() {
+        const [r, g, b] = this.rgb;
+        return this._rgb2hsl(r, g, b);
+    }
+
+    _hue() {
+        const [r, g, b] = this.rgb;
+        const [h] = this._rgb2hsl(r, g, b);
+        return h;
+    }
+
+    _saturation() {
+        const [r, g, b] = this.rgb;
+        const [h, s, l] = this._rgb2hsl(r, g, b);
+        return s;
+    }
+
+    _lightness() {
+        const [r, g, b] = this.rgb;
+        const [h, s, l] = this._rgb2hsl(r, g, b);
+        return l;
+    }
+
+    _hslString() {
+        const [r, g, b] = this.rgb;
+        const [h, s, l] = this._rgb2hsl(r, g, b);
+        return `${h}, ${s}, ${l}`;
+    }
+
+    _relativeLuminance() {
+        let [r, g, b] = this.rgb;
+
+        const lowCoefficient = 1 / 12.92;
+        const rsRGB = r / 255;
+        const gsRGB = g / 255;
+        const bsRGB = b / 255;
+
+        r = rsRGB <= 0.03928 ? rsRGB * lowCoefficient : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
+        g = gsRGB <= 0.03928 ? gsRGB * lowCoefficient : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
+        b = bsRGB <= 0.03928 ? bsRGB * lowCoefficient : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
+
+        return (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
+    }
+
+    /**
+     * Return either white or black depending on the relative luminance
+     * of the primary colour. Can be used to ensure text is legible
+     *
+     * @returns {String} either '#FFFFFF' or '#000000'
+     */
+    _textColourHex() {
+        const luminance = this.relativeLuminance;
+        return (luminance < 0.5) ? '#FFFFFF' : '#000000';
     }
 }
 
