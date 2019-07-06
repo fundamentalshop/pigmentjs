@@ -1,6 +1,6 @@
 # PigmentJS :pig_nose: :candy:
 
-PigmentJS is a very, very simple zero-dependency colo(u)r library for web developers.
+PigmentJS is a very, very simple zero-dependency colour library built for web developers to easily create beautiful, legible, and accessible colour palettes.
 
 ### Quick Start
 
