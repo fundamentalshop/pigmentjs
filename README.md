@@ -1,7 +1,5 @@
 # PigmentJS :pig_nose: :candy:
 
-### NOTE: PigmentJS is under development and subject to change wildly at any time. 
-
 ### Quick Start
 
 #### Install
