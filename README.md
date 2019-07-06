@@ -1,6 +1,6 @@
 # PigmentJS :pig_nose: :candy:
 
-### NOTE: PigmentJS is under development and subject to change wildly at any time. 
+PigmentJS is a very, very simple zero-dependency colour library built for web developers to easily create beautiful, legible, and accessible colour palettes.
 
 ### Quick Start
 
@@ -123,7 +123,7 @@ pigment.triad(); // [colour (itself), Pigment(), Pigment()]
 
 `Pigment().monochrome(5)`
 
-Returns an array of colours with a monochromatic relationship to the input colour.
+Returns an array of colours with a monochromatic relationship to the input colour (i.e. an almost identical Hue).
 
 Params
 
@@ -131,15 +131,26 @@ Size [Int] (required)
 
 - How many new colours to return
 
-Mode [String] (default 'saturation')
-
-- 'saturation': Keep Hue the same, adjust saturation
-- 'shade': Add % black to colour
-
-
 ```javascript
 const pigment = Pigment();
 pigment.monochrome(3); // [Pigment(), Pigment(), Pigment()]
+```
+
+---
+
+`Pigment().shades(5)`
+
+Returns an array of colours with black mixed progressively.
+
+Params
+
+Size [Int] (required)
+
+- How many new colours to return
+
+```javascript
+const pigment = Pigment();
+pigment.shades(3); // [Pigment(), Pigment(), Pigment()]
 ```
 
 ---
