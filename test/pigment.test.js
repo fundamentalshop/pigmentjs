@@ -18,7 +18,7 @@ describe('Pigment instantiation', () => {
     });
 });
 
-describe('getters', () => {
+describe('Pigment class variables', () => {
     describe('Pigment().rgb', () => {
         test('#FFFFFF', () => {
             const colour = Pigment('#FFFFFF');
@@ -77,6 +77,114 @@ describe('getters', () => {
         });
     });
 
+    describe('Pigment().hue', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.hue).toEqual(0);
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.hue).toEqual(0);
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.hue).toEqual(44.2);
+        });
+
+        test('#F4C', () => {
+            const colour = Pigment('#F4C');
+            expect(colour.hue).toEqual(316.4);
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.hue).toEqual(244.2);
+        });
+    });
+
+    describe('Pigment().saturation', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.saturation).toEqual(0);
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.saturation).toEqual(0);
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.saturation).toEqual(89);
+        });
+
+        test('#F4C', () => {
+            const colour = Pigment('#F4C');
+            expect(colour.saturation).toEqual(100);
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.saturation).toEqual(67.2);
+        });
+    });
+
+    describe('Pigment().lightness', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.lightness).toEqual(100);
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.lightness).toEqual(0);
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.lightness).toEqual(60.8);
+        });
+
+        test('#F4C', () => {
+            const colour = Pigment('#F4C');
+            expect(colour.lightness).toEqual(63.3);
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.lightness).toEqual(25.1);
+        });
+    });
+
+    describe('Pigment().hsl', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.hsl).toEqual([0, 0, 100]);
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.hsl).toEqual([0, 0, 0]);
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.hsl).toEqual([44.2, 89, 60.8]);
+        });
+
+        test('#F4C', () => {
+            const colour = Pigment('#F4C');
+            expect(colour.hsl).toEqual([316.4, 100, 63.3]);
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.hsl).toEqual([244.2, 67.2, 25.1]);
+        });
+    });
+
     describe('Pigment().hslString', () => {
         test('#FFFFFF', () => {
             const colour = Pigment('#FFFFFF');
@@ -101,6 +209,22 @@ describe('getters', () => {
         test('#1B156B', () => {
             const colour = Pigment('#1B156B');
             expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
+        });
+    });
+
+    describe('Pigment().relativeLuminance', () => {
+        let pigment;
+
+        test('#1B156B', () => {
+            pigment = Pigment('#1B156B');
+            expect(pigment.relativeLuminance).toEqual(0.01830879234422112);
+        });
+
+        test('it returns a number between 0 and 1', () => {
+            for (let i = 0; i < 1000; i += 1) {
+                pigment = Pigment();
+                expect(pigment.relativeLuminance).toBeLessThanOrEqual(1);
+            }
         });
     });
 
@@ -267,13 +391,3 @@ describe('Pigment().shades()', () => {
     });
 });
 
-describe('Pigment().relativeLuminance', () => {
-    let pigment;
-
-    test('it returns a number between 0 and 1', () => {
-        for (let i = 0; i < 1000; i += 1) {
-            pigment = Pigment();
-            expect(pigment.relativeLuminance).toBeLessThanOrEqual(1);
-        }
-    });
-});
