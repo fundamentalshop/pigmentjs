@@ -19,7 +19,156 @@ describe('Pigment instantiation', () => {
 });
 
 describe('getters', () => {
-    describe('complementary colour', () => {
+    describe('Pigment().rgb', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.rgb).toEqual([255, 255, 255]);
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.rgb).toEqual([0, 0, 0]);
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.rgb).toEqual([244, 197, 66]);
+        });
+
+        describe('three character colours', () => {
+            test('#FFF', () => {
+                const colour = Pigment('#FFF');
+                expect(colour.hex).toEqual('#FFFFFF');
+                expect(colour.rgb).toEqual([255, 255, 255]);
+            });
+            test('#F4C', () => {
+                const colour = Pigment('#F4C');
+                expect(colour.hex).toEqual('#FF44CC');
+                expect(colour.rgb).toEqual([255, 68, 204]);
+            });
+        });
+    });
+
+    describe('Pigment().rgbString', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.rgbString).toEqual('255, 255, 255');
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.rgbString).toEqual('0, 0, 0');
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.rgbString).toEqual('244, 197, 66');
+        });
+
+        describe('three character colours', () => {
+            test('#FFF', () => {
+                const colour = Pigment('#FFF');
+                expect(colour.rgbString).toEqual('255, 255, 255');
+            });
+            test('#F4C', () => {
+                const colour = Pigment('#F4C');
+                expect(colour.rgbString).toEqual('255, 68, 204');
+            });
+        });
+    });
+
+    describe('Pigment().hslString', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.hslString).toEqual('0, 0, 100');
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.hslString).toEqual('0, 0, 0');
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.hslString).toEqual('44.2, 89, 60.8');
+        });
+
+        test('#F4C', () => {
+            const colour = Pigment('#F4C');
+            expect(colour.hslString).toEqual('316.4, 100, 63.3');
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
+        });
+    });
+
+    describe('Pigment().textColourHex', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.textColourHex).toEqual('#000000');
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#FF44CC', () => {
+            const colour = Pigment('#FF44CC');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#1B156B', () => {
+            const colour = Pigment('#1B156B');
+            expect(colour.textColourHex).toEqual('#FFFFFF');
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.textColourHex).toEqual('#000000');
+        });
+    });
+});
+
+describe('Pigment()._randomHex', () => {
+    let colour;
+
+    test('ensure always valid Hex', () => {
+        for (let i = 0; i < 1000; i += 1) {
+            colour = Pigment();
+            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
+        }
+    });
+});
+
+describe('Pigment().complementary()', () => {
+    let pigment1;
+
+    test('complementary rotates hue by 180 degrees', () => {
+        for (let i = 0; i < 1000; i += 1) {
+            pigment1 = Pigment();
+            const hue1 = Math.round(pigment1.hue);
+            const pigment2 = pigment1.complementary();
+            const hue2 = Math.round(pigment2.hue);
+
+            // anything at the centre of the colour wheel may retain its hue
+            expect(Math.abs(hue2 - hue1)).toBeOneOf([180, 0]);
+        }
+    });
+
+    test('complementary colour applied twice returns original hex', () => {
+        for (let i = 0; i < 1000; i += 1) {
+            const pigment = Pigment();
+            const complementary = pigment.complementary();
+            const original = complementary.complementary();
+
+            expect(original.hex).toEqual(pigment.hex);
+        }
+    });
+
+    describe('Specific colour checks', () => {
         test('#FFFFFF', () => {
             const colour = Pigment('#FFFFFF');
             expect(colour.complementary().hex).toEqual('#FFFFFF');
@@ -60,173 +209,15 @@ describe('getters', () => {
             expect(colour.complementary().hex).toEqual('#E9E7E7');
         });
     });
-
-    describe('it converts to RGB: ', () => {
-        test('#FFFFFF', () => {
-            const colour = Pigment('#FFFFFF');
-            expect(colour.rgb).toEqual([255, 255, 255]);
-        });
-
-        test('#000000', () => {
-            const colour = Pigment('#000000');
-            expect(colour.rgb).toEqual([0, 0, 0]);
-        });
-
-        test('#F4C542', () => {
-            const colour = Pigment('#F4C542');
-            expect(colour.rgb).toEqual([244, 197, 66]);
-        });
-
-        describe('three character colours', () => {
-            test('#FFF', () => {
-                const colour = Pigment('#FFF');
-                expect(colour.hex).toEqual('#FFFFFF');
-                expect(colour.rgb).toEqual([255, 255, 255]);
-            });
-            test('#F4C', () => {
-                const colour = Pigment('#F4C');
-                expect(colour.hex).toEqual('#FF44CC');
-                expect(colour.rgb).toEqual([255, 68, 204]);
-            });
-        });
-    });
-
-    describe('it converts to RGB String: ', () => {
-        test('#FFFFFF', () => {
-            const colour = Pigment('#FFFFFF');
-            expect(colour.rgbString).toEqual('255, 255, 255');
-        });
-
-        test('#000000', () => {
-            const colour = Pigment('#000000');
-            expect(colour.rgbString).toEqual('0, 0, 0');
-        });
-
-        test('#F4C542', () => {
-            const colour = Pigment('#F4C542');
-            expect(colour.rgbString).toEqual('244, 197, 66');
-        });
-
-        describe('three character colours', () => {
-            test('#FFF', () => {
-                const colour = Pigment('#FFF');
-                expect(colour.rgbString).toEqual('255, 255, 255');
-            });
-            test('#F4C', () => {
-                const colour = Pigment('#F4C');
-                expect(colour.rgbString).toEqual('255, 68, 204');
-            });
-        });
-    });
-
-
-    describe('it converts to hslString', () => {
-        test('#FFFFFF', () => {
-            const colour = Pigment('#FFFFFF');
-            expect(colour.hslString).toEqual('0, 0, 100');
-        });
-
-        test('#000000', () => {
-            const colour = Pigment('#000000');
-            expect(colour.hslString).toEqual('0, 0, 0');
-        });
-
-        test('#F4C542', () => {
-            const colour = Pigment('#F4C542');
-            expect(colour.hslString).toEqual('44.2, 89, 60.8');
-        });
-
-        test('#F4C', () => {
-            const colour = Pigment('#F4C');
-            expect(colour.hslString).toEqual('316.4, 100, 63.3');
-        });
-
-        test('#1B156B', () => {
-            const colour = Pigment('#1B156B');
-            expect(colour.hslString).toEqual('244.2, 67.2, 25.1');
-        });
-    });
-
-    describe('it returns black or white text for highest contrast', () => {
-        test('#FFFFFF', () => {
-            const colour = Pigment('#FFFFFF');
-            expect(colour.textColourHex).toEqual('#000000');
-        });
-
-        test('#000000', () => {
-            const colour = Pigment('#000000');
-            expect(colour.textColourHex).toEqual('#FFFFFF');
-        });
-
-        test('#FF44CC', () => {
-            const colour = Pigment('#FF44CC');
-            expect(colour.textColourHex).toEqual('#FFFFFF');
-        });
-
-        test('#1B156B', () => {
-            const colour = Pigment('#1B156B');
-            expect(colour.textColourHex).toEqual('#FFFFFF');
-        });
-
-        test('#F4C542', () => {
-            const colour = Pigment('#F4C542');
-            expect(colour.textColourHex).toEqual('#000000');
-        });
-    });
 });
 
-describe('randomHex', () => {
-    let colour;
-    test('ensure always valid Hex (test 10,000 times)', () => {
-        for (let i = 0; i < 10000; i += 1) {
-            colour = Pigment();
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
-        }
-
-        for (let i = 0; i < 10000; i += 1) {
-            colour = Pigment();
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.complementary().hex)).toEqual(true);
-        }
-    });
-});
-
-describe('complementary colour', () => {
-    let colour1;
-
-    test('complementary rotates hue by 180 degrees', () => {
-        for (let i = 0; i < 10000; i += 1) {
-            colour1 = Pigment();
-            const hue1 = Math.round(colour1.hue);
-            const colour2 = colour1.complementary();
-            const hue2 = Math.round(colour2.hue);
-
-            // anything at the centre of the colour wheel may retain its hue
-            expect(Math.abs(hue2 - hue1)).toBeOneOf([180, 0]);
-        }
-    });
-
-    test('complementary colour applied twice returns original hex', () => {
-        for (let i = 0; i < 10000; i += 1) {
-            const colour = Pigment();
-            const [r1, g1, b1] = colour.rgb;
-
-            const [h, s, l] = colour.hsl;
-
-            const [r2, g2, b2] = colour._hsl2rgb(h, s, l);
-            expect(r1).toEqual(r2);
-            expect(g1).toEqual(g2);
-            expect(b1).toEqual(b2);
-        }
-    });
-});
-
-describe('triadic colour', () => {
-    let colour;
+describe('Pigment().triad()', () => {
+    let pigment;
 
     test('triad rotates hue by 120 degrees and returns three colours', () => {
-        for (let i = 0; i < 10000; i += 1) {
-            colour = Pigment();
-            const [colour1, colour2, colour3] = colour.triad();
+        for (let i = 0; i < 1000; i += 1) {
+            pigment = Pigment();
+            const [colour1, colour2, colour3] = pigment.triad();
             const h1 = colour1.hue;
             const h2 = colour2.hue;
             const h3 = colour3.hue;
@@ -244,20 +235,45 @@ describe('triadic colour', () => {
 
 });
 
-describe('monochromatic colour', () => {
-    test('all colours returned retain the same hue', () => {
-        // TODO: Currently the hue can vary, sometimes up to 4 or 5.
-        //  Need to investigate where the rounding error is
+describe('Pigment().monochrome()', () => {
+    let pigment;
+
+    test('Returns an array of Pigment() instances', () => {
+        for (let i = 0; i < 1000; i += 1) {
+            pigment = Pigment();
+            const monochromeArray = pigment.monochrome(5);
+            expect(monochromeArray.length).toEqual(5);
+            for (const p of monochromeArray) {
+                expect(p.constructor.name).toEqual('Pigment');
+                expect(p.hex).toBeHexadecimal();
+            }
+        }
     });
 });
 
-describe('relative luminance', () => {
-    let colour;
+describe('Pigment().shades()', () => {
+    let pigment;
+
+    test('Returns an array of Pigment() instances', () => {
+        for (let i = 0; i < 1000; i += 1) {
+            pigment = Pigment();
+            const shadeArray = pigment.shades(5);
+            expect(shadeArray.length).toEqual(5);
+            for (const p of shadeArray) {
+                expect(p.constructor.name).toEqual('Pigment');
+                expect(p.hex).toBeHexadecimal();
+            }
+        }
+    });
+});
+
+describe('Pigment().relativeLuminance', () => {
+    let pigment;
 
     test('it returns a number between 0 and 1', () => {
-        for (let i = 0; i < 10000; i += 1) {
-            colour = Pigment();
-            expect(colour.relativeLuminance).toBeLessThanOrEqual(1);
+        for (let i = 0; i < 1000; i += 1) {
+            pigment = Pigment();
+            expect(pigment.relativeLuminance).toBeLessThanOrEqual(1);
         }
     });
 });

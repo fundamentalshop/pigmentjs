@@ -1,6 +1,3 @@
-export const MODE_SHADE = 'shade';
-export const MODE_SATURATION = 'saturation';
-
 
 export class Pigment {
     constructor(hex) {
