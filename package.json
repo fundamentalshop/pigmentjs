@@ -1,6 +1,6 @@
 {
   "name": "pigmentjs",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A zero-dependency colour organisation, creation and manipulation library built for web developers.",
   "keywords": [
     "color",
@@ -27,7 +27,9 @@
     "url": "https://github.com/fundamentalshop/pigmentjs/issues"
   },
   "main": "dist/pigment.js",
-  "files": ["dist/pigment.js"],
+  "files": [
+    "dist/pigment.js"
+  ],
   "scripts": {
     "test": "jest",
     "build": "webpack",
