@@ -27,6 +27,7 @@
     "url": "https://github.com/fundamentalshop/pigmentjs/issues"
   },
   "main": "dist/pigment.js",
+  "files": ["dist/pigment.js"],
   "scripts": {
     "test": "jest",
     "build": "webpack",
