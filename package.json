@@ -1,6 +1,6 @@
 {
   "name": "pigmentjs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A zero-dependency colour organisation, creation and manipulation library built for web developers.",
   "keywords": [
     "color",
