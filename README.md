@@ -10,8 +10,14 @@ PigmentJS is a very, very simple zero-dependency colour library built for web de
 
 #### Use Pigment
 Instantiate PigmentJS to generate a random colour, or use a 3 or 6 character Hex string.
+
 ```javascript
+// Require
+const {Pigment} = require('pigmentjs');
+// OR
+// Import
 import Pigment from 'pigmentjs'
+
 
 Pigment(); // Random colour
 Pigment('#FFFFFF');
@@ -22,7 +28,7 @@ Create colours
 ```javascript
 const pigment = Pigment('#22FF09');
 const complementary = pigment.complementary().hex; // '#E609FF'
-const triad = pigment.triad(); // [Pigment(), Pigment(), Pigment()]; 
+const triad = pigment.triad(); // [Pigment(), Pigment(), Pigment()];
 ```
 
 ## Pigment()
