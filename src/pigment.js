@@ -149,7 +149,7 @@ export class Pigment {
 
         light = ((min + max) / 2);
 
-        if (light < 100) {
+        if (light < 1) {
             sat = (max - min) / (1 - Math.abs((2 * light) - 1)) * 100;
         } else {
             sat = 0;

@@ -3,7 +3,6 @@ import {Pigment as p} from '../src/pigment';
 import {Palette as pa} from '../src/palette';
 
 
-
 describe('instantiation structure', () => {
     test('Pigment() will return an instance of Pigment', () => {
         expect(Pigment() instanceof p).toBeTrue();
