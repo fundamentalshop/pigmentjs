@@ -5,6 +5,7 @@ module.exports = {
     mode: 'production',
     output: {
         filename: 'pigment.js',
+        globalObject: 'this',
         path: path.resolve(__dirname, 'dist'),
         library: 'pigmentjs',
         libraryTarget: 'umd',
