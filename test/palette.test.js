@@ -8,4 +8,10 @@ describe('Palette instantiation', () => {
         expect(palette.primary).toEqual(colour);
         expect(palette.complementary).toEqual(colour.complementary());
     });
+
+    test('it throws an error when instantiated with invalid value', () => {
+        expect(() => Palette('invalid')).toThrow(
+            'Palette must be instantiated with either an instance of Pigment or a hex string'
+        );
+    })
 });
