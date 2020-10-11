@@ -1,14 +1,14 @@
 export class Pigment {
-    hex: string;
-    rgb: [number, number, number];
-    rgbString: string;
-    hsl: [number, number, number];
-    hue: number;
-    saturation: number;
-    lightness: number;
-    hslString: string;
-    relativeLuminance: number;
-    textColourHex: string;
+    readonly hex: string;
+    readonly rgb: [number, number, number];
+    readonly rgbString: string;
+    readonly hsl: [number, number, number];
+    readonly hue: number;
+    readonly saturation: number;
+    readonly lightness: number;
+    readonly hslString: string;
+    readonly relativeLuminance: number;
+    readonly textColourHex: string;
 
     constructor(hex?: string) {
         this.hex = hex || this._randomHex();
@@ -38,58 +38,41 @@ export class Pigment {
     /**
      * Convert to HSL, rotate hue 180 degrees, convert
      * back to RGB and instantiate pigmentjs with hex
-     *
-     * @returns {Pigment} pigmentjs instance
      */
     complementary(): Pigment {
-        let h: number;
-        let s: number;
-        let l: number;
-
         // eslint-disable-next-line prefer-const
-        [h, s, l] = this.hsl;
+        let [h, s, l] = this.hsl;
 
         h += 180;
         if (h > 360) {
             h -= 360;
         }
 
-        const [r, g, b] = this._hsl2rgb(h, s, l);
-        const hex = this._rgb2hex(r, g, b);
+        const hex = this._rgb2hex(...this._hsl2rgb(h, s, l));
         return new Pigment(hex);
     }
 
     /**
      * Convert to HSL, rotate hue 120 degrees (twice), convert
      * back to RGB and instantiate pigmentjs with hex
-     *
-     * @returns [Pigment] 3x pigmentjs instances
      */
     triad(): [Pigment, Pigment, Pigment] {
-        let h: number;
-        let s: number;
-        let l: number;
-
         // eslint-disable-next-line prefer-const
-        [h, s, l] = this.hsl;
+        let [h, s, l] = this.hsl;
 
         h += 120;
         if (h > 360) {
             h -= 360;
         }
 
-        let [r, g, b] = this._hsl2rgb(h, s, l);
-        let hex = this._rgb2hex(r, g, b);
-        const Pigment2 = new Pigment(hex);
+        const Pigment2 = new Pigment(this._rgb2hex(...this._hsl2rgb(h, s, l)));
 
         h += 120;
         if (h > 360) {
             h -= 360;
         }
 
-        [r, g, b] = this._hsl2rgb(h, s, l);
-        hex = this._rgb2hex(r, g, b);
-        const Pigment3 = new Pigment(hex);
+        const Pigment3 = new Pigment(this._rgb2hex(...this._hsl2rgb(h, s, l)));
 
         return [this, Pigment2, Pigment3];
     }
@@ -104,8 +87,7 @@ export class Pigment {
 
         return percentages.map((saturation) => {
             saturation = saturation * 100;
-            const [r, g, b] = this._hsl2rgb(this.hue, saturation, this.lightness);
-            return new Pigment(this._rgb2hex(r, g, b));
+            return new Pigment(this._rgb2hex(...this._hsl2rgb(this.hue, saturation, this.lightness)));
         });
     }
 
@@ -118,11 +100,12 @@ export class Pigment {
         percentages.sort((a, b) => a - b);
 
         return percentages.map((shade) => {
-            let [r, g, b] = this.rgb;
-            r = Math.round(r - (r * shade));
-            g = Math.round(g - (g * shade));
-            b = Math.round(b - (b * shade));
-            return new Pigment(this._rgb2hex(r, g, b));
+            const [r, g, b] = this.rgb;
+            return new Pigment(this._rgb2hex(
+                Math.round(r - (r * shade)),
+                Math.round(g - (g * shade)),
+                Math.round(b - (b * shade)),
+            ));
         });
     }
 
@@ -214,11 +197,12 @@ export class Pigment {
             r = chroma; g = 0; b = x;
         }
 
-        r = Math.abs(Math.round((r + m) * 255));
-        g = Math.abs(Math.round((g + m) * 255));
-        b = Math.abs(Math.round((b + m) * 255));
 
-        return [r, g, b];
+        return [
+            Math.abs(Math.round((r + m) * 255)),
+            Math.abs(Math.round((g + m) * 255)),
+            Math.abs(Math.round((b + m) * 255)),
+        ];
     }
 
     _rgb2hex(r: number, g: number, b: number): string {
@@ -240,10 +224,11 @@ export class Pigment {
     }
 
     _rgb(): [number, number, number] {
-        const r = parseInt(this.hex.substring(1, 3), 16);
-        const g = parseInt(this.hex.substring(3, 5), 16);
-        const b = parseInt(this.hex.substring(5, 7), 16);
-        return [r, g, b];
+        return [
+            parseInt(this.hex.substring(1, 3), 16),
+            parseInt(this.hex.substring(3, 5), 16),
+            parseInt(this.hex.substring(5, 7), 16),
+        ];
     }
 
     _rgbString(): string {
@@ -252,31 +237,26 @@ export class Pigment {
     }
 
     _hsl(): [number, number, number] {
-        const [r, g, b] = this.rgb;
-        return this._rgb2hsl(r, g, b);
+        return this._rgb2hsl(...this.rgb);
     }
 
     _hue(): number {
-        const [r, g, b] = this.rgb;
-        const [h] = this._rgb2hsl(r, g, b);
+        const [h, _s, _l] = this._rgb2hsl(...this.rgb);
         return h;
     }
 
     _saturation(): number {
-        const [r, g, b] = this.rgb;
-        const [h, s, l] = this._rgb2hsl(r, g, b);
+        const [_h, s, _l] = this._rgb2hsl(...this.rgb);
         return s;
     }
 
     _lightness(): number {
-        const [r, g, b] = this.rgb;
-        const [h, s, l] = this._rgb2hsl(r, g, b);
+        const [_h, _s, l] = this._rgb2hsl(...this.rgb);
         return l;
     }
 
     _hslString(): string {
-        const [r, g, b] = this.rgb;
-        const [h, s, l] = this._rgb2hsl(r, g, b);
+        const [h, s, l] = this._rgb2hsl(...this.rgb);
         return `${h}, ${s}, ${l}`;
     }
 
@@ -302,8 +282,7 @@ export class Pigment {
      * @returns {String} either '#FFFFFF' or '#000000'
      */
     _textColourHex(): string {
-        const luminance = this.relativeLuminance;
-        return (luminance < 0.5) ? '#FFFFFF' : '#000000';
+        return (this.relativeLuminance < 0.5) ? '#FFFFFF' : '#000000';
     }
 }
 
