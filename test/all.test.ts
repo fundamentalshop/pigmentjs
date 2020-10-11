@@ -5,10 +5,10 @@ import {Palette as pa} from '../src/palette';
 
 describe('instantiation structure', () => {
     test('Pigment() will return an instance of Pigment', () => {
-        expect(Pigment() instanceof p).toBeTrue();
+        expect(Pigment() instanceof p).toBeTruthy();
     });
 
     test('Palette() will return an instance of Palette', () => {
-        expect(Palette() instanceof pa).toBeTrue();
+        expect(Palette() instanceof pa).toBeTruthy();
     });
 });

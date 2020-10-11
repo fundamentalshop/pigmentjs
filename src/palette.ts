@@ -2,7 +2,10 @@ import Pigment from './pigment';
 
 
 export class Palette {
-    constructor(colour) {
+    primary: Pigment;
+    complementary: Pigment;
+
+    constructor(colour: Pigment | string) {
         if (!(colour instanceof Pigment)) {
             try {
                 colour = new Pigment(colour);

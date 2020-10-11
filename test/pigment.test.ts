@@ -278,7 +278,7 @@ describe('Pigment().complementary()', () => {
             const hue2 = Math.round(pigment2.hue);
 
             // anything at the centre of the colour wheel may retain its hue
-            expect(Math.abs(hue2 - hue1)).toBeOneOf([180, 0]);
+            expect([180, 0]).toContain(Math.abs(hue2 - hue1));
         }
     });
 
@@ -352,8 +352,8 @@ describe('Pigment().triad()', () => {
 
             const hues = [hue1, hue2, hue3];
             // anything at the centre of the colour wheel may retain its hue
-            expect(Math.abs(hues[0] - hues[1])).toBeOneOf([120, 240, 0]);
-            expect(Math.abs(hues[1] - hues[2])).toBeOneOf([120, 240, 0]);
+            expect([120, 240, 0]).toContain(Math.abs(hues[0] - hues[1]));
+            expect([120, 240, 0]).toContain(Math.abs(hues[1] - hues[2]));
         }
     });
 
@@ -369,7 +369,6 @@ describe('Pigment().monochrome()', () => {
             expect(monochromeArray.length).toEqual(5);
             for (const p of monochromeArray) {
                 expect(p.constructor.name).toEqual('Pigment');
-                expect(p.hex).toBeHexadecimal();
             }
         }
     });
@@ -385,7 +384,6 @@ describe('Pigment().shades()', () => {
             expect(shadeArray.length).toEqual(5);
             for (const p of shadeArray) {
                 expect(p.constructor.name).toEqual('Pigment');
-                expect(p.hex).toBeHexadecimal();
             }
         }
     });
