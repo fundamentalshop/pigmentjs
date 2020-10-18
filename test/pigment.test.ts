@@ -1,4 +1,5 @@
 import Pigment from '../src/index';
+import {isValidHex} from '../src/validations';
 
 
 describe('Pigment instantiation', () => {
@@ -253,17 +254,6 @@ describe('Pigment class variables', () => {
             const colour = Pigment('#F4C542');
             expect(colour.textColourHex).toEqual('#000000');
         });
-    });
-});
-
-describe('Pigment()._randomHex', () => {
-    let colour;
-
-    test('ensure always valid Hex', () => {
-        for (let i = 0; i < 1000; i += 1) {
-            colour = Pigment();
-            expect(/^#[A-Fa-f0-9]{6}$/.test(colour.hex)).toEqual(true);
-        }
     });
 });
 
