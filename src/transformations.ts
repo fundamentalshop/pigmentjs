@@ -21,7 +21,7 @@ const rgb2hex = (rgb: RGB): string => {
         bs = `0${bs}`;
     }
 
-    return `#${rs}${gs}${bs}`;
+    return `#${rs}${gs}${bs}`.toUpperCase();
 };
 
 const rgb2string = (rgb: RGB): RGBString => {
@@ -58,7 +58,7 @@ const rgb2hsl = (rgb: RGB): HSL => {
             hue = (4.0 + (r - g) / (max - min)) * 60;
             break;
         default:
-            throw Error('Error processing _rgb2hsl');
+            throw Error('Error processing rgb2hsl');
     }
 
     if (hue < 0) {
