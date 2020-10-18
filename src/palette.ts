@@ -2,8 +2,8 @@ import Pigment from './pigment';
 
 
 export class Palette {
-    primary: Pigment;
-    complementary: Pigment;
+    readonly primary: Pigment;
+    readonly complementary: Pigment;
 
     constructor(colour: Pigment | string) {
         if (!(colour instanceof Pigment)) {

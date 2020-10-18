@@ -161,4 +161,17 @@ pigment.shades(3); // [Pigment(), Pigment(), Pigment()]
 
 ---
 
-### [Dev README](https://github.com/JamesToohey/pigmentjs/blob/master/docs/dev.md)
+### Deploying
+
+1. Bump verion number
+```
+npm version [major|minor|patch]
+```
+2. Build and publish
+```
+npm publish
+```
+3. Unlink, bump version in docs/package.json, npm install and test new version in docs
+```
+cd docs/ && npm unlink
+```

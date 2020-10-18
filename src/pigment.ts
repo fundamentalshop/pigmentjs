@@ -158,6 +158,8 @@ export class Pigment {
             case b:
                 hue = (4.0 + (r - g) / (max - min)) * 60;
                 break;
+            default:
+                throw Error('Error processing _rgb2hsl');
         }
 
         if (hue < 0) {
