@@ -171,7 +171,3 @@ npm version [major|minor|patch]
 ```
 npm publish
 ```
-3. Unlink, bump version in docs/package.json, npm install and test new version in docs
-```
-cd docs/ && npm unlink
-```
