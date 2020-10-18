@@ -120,11 +120,11 @@ const relativeLuminance = (rgb: RGB): number => {
     const gsRGB = rgb.g / 255;
     const bsRGB = rgb.b / 255;
 
-    rgb.r = rsRGB <= 0.03928 ? rsRGB * lowCoefficient : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
-    rgb.g = gsRGB <= 0.03928 ? gsRGB * lowCoefficient : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
-    rgb.b = bsRGB <= 0.03928 ? bsRGB * lowCoefficient : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
+    const r = rsRGB <= 0.03928 ? rsRGB * lowCoefficient : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
+    const g = gsRGB <= 0.03928 ? gsRGB * lowCoefficient : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
+    const b = bsRGB <= 0.03928 ? bsRGB * lowCoefficient : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
 
-    return (rgb.r * 0.2126) + (rgb.g * 0.7152) + (rgb.b * 0.0722);
+    return (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
 };
 
 

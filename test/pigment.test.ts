@@ -1,5 +1,4 @@
 import Pigment from '../src/index';
-import {isValidHex} from '../src/validations';
 
 
 describe('Pigment instantiation', () => {
@@ -46,6 +45,34 @@ describe('Pigment class variables', () => {
                 const colour = Pigment('#F4C');
                 expect(colour.hex).toEqual('#FF44CC');
                 expect(colour.rgb).toEqual([255, 68, 204]);
+            });
+        });
+    });
+
+    describe('Pigment().irgb', () => {
+        test('#FFFFFF', () => {
+            const colour = Pigment('#FFFFFF');
+            expect(colour.irgb).toEqual({r: 255, g: 255, b: 255});
+        });
+
+        test('#000000', () => {
+            const colour = Pigment('#000000');
+            expect(colour.irgb).toEqual({r: 0, g: 0, b: 0});
+        });
+
+        test('#F4C542', () => {
+            const colour = Pigment('#F4C542');
+            expect(colour.irgb).toEqual({r: 244, g: 197, b: 66});
+        });
+
+        describe('three character colours', () => {
+            test('#FFF', () => {
+                const colour = Pigment('#FFF');
+                expect(colour.irgb).toEqual({r: 255, g: 255, b: 255});
+            });
+            test('#F4C', () => {
+                const colour = Pigment('#F4C');
+                expect(colour.irgb).toEqual({r: 255, g: 68, b: 204});
             });
         });
     });
