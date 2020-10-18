@@ -9,6 +9,6 @@ describe('instantiation structure', () => {
     });
 
     test('Palette() will return an instance of Palette', () => {
-        expect(Palette() instanceof pa).toBeTruthy();
+        expect(Palette(Pigment()) instanceof pa).toBeTruthy();
     });
 });
